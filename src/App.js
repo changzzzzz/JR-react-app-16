@@ -12,44 +12,49 @@ function App() {
         title:".Net", 
         price:1000, 
         language:"en", 
-        duration:"3 month", 
+        duration:"3 Hours", 
         location:"Mel",
         recentAdded:false,
         difficulty:"Beginner", 
+        isCompleted:true
     },
     {
         id:2,
         title:"React", 
         price:1000, 
         language:"en", 
-        duration:"3 month", 
+        duration:"2 Hours", 
         location:"Mel",
         recentAdded:true,
-        difficulty:"Intermediate"
+        difficulty:"Intermediate",
+        isCompleted:false
     },
     {
         id:3,
         title:"HTML", 
         price:1000, 
         language:"en", 
-        duration:"3 month", 
+        duration:"3 Hours", 
         location:"Mel",
         recentAdded:false,
-        difficulty: "Advanced"
+        difficulty: "Advanced",
+        isCompleted:false
     },        
     {
         id:4,
         title:"Linkedin", 
         price:1000, 
         language:"en", 
-        duration:"3 month", 
+        duration:"10 Hours", 
         location:"Mel",
         recentAdded:true,
-        difficulty:"Advanced"
+        difficulty:"Advanced",
+        isCompleted:true
     },
     
 ])
 
+  
 
   return (
     <div className="App">
@@ -64,7 +69,8 @@ function App() {
                 duration={item.duration}
                 location={item.location}
                 recentAdded={item.recentAdded}
-                difficulty={item.difficulty} ></CourseCard>
+                difficulty={item.difficulty} 
+                isCompleted={item.isCompleted}></CourseCard>
               )
             }
           )

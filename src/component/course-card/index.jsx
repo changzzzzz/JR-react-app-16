@@ -133,7 +133,7 @@ export default props => {
                 {isFavorite ? (<button onClick={handleIsFavorite}>取消收藏</button>) : 
                 (<button onClick={handleIsFavorite}>收藏</button> ) }
             
-
+            
             </div>
         </div>
     )

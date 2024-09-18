@@ -12,16 +12,31 @@ code {
     monospace;
 }
 
+.main-container {
+  display: flex;
+  height: 100vh; /* 页面高度占满整个视口 */
+}
+
 .card-container{
+  width: 70%;
+  padding: 20px; /* 内边距 */
+  background-color: #ffffff; /* 设置背景色 */
+
   display:flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  
+
   .card-item{
     width: 1.8rem;
     min-width: 250px;
     margin-bottom: 15px;
+  }
 }
 
+.sidebar {
+  width: 30%;
+  background-color: #f0f0f0; /* 给左侧设置背景色 */
+  padding: 20px; /* 内边距 */
 }
+

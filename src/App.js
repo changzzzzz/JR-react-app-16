@@ -51,7 +51,7 @@ function App() {
     },
   ]);
 
-  const [lectures, setLectures] = useState(null);
+  const [professors, setProfessors] = useState(null);
   const API_URL =
     "https://my-json-server.typicode.com/JustinHu8/courseCardMock/lecturers";
 
@@ -69,7 +69,7 @@ function App() {
         return response.json(); // 返回解析后的 JSON 数据
       })
       .then((data) => {
-        setLectures(data); // 将数据存储在 state 中
+        setProfessors(data); // 将数据存储在 state 中
       })
       .catch((error) => {
         console.error(
@@ -78,6 +78,21 @@ function App() {
         );
       });
   };
+
+  //  async await
+  // useEffect(() => {
+  //   async function fetchProfessors() {
+  //     try {
+  //       const response = await fetch(API_URL);
+  //       const data = await response.json();
+  //       setCourse(data); // 将获取到的数据保存到 course 状态中
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   }
+
+  //   fetchProfessors(); // 调用 fetchCourse 函数
+  // }, []); // 仅在组件挂载时调用一次
 
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (event) => {
@@ -150,8 +165,8 @@ function App() {
             // )
 
             // assignment 4
-            lectures ? (
-              lectures.map((course) => (
+            professors ? (
+              professors.map((course) => (
                 <div key={course.id}>
                   <h2>{course.name}</h2>
                   <p>{course.title}</p>

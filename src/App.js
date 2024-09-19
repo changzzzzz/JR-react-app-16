@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CourseCard from "./component/course-card";
 
 function App() {
@@ -51,6 +51,34 @@ function App() {
     },
   ]);
 
+  const [lectures, setLectures] = useState(null);
+  const API_URL =
+    "https://my-json-server.typicode.com/JustinHu8/courseCardMock/lecturers";
+
+  useEffect(() => {
+    fetchProfessors(); // 在组件挂载时调用
+  }, []);
+
+  // 使用 fetch() 和 Promise
+  const fetchProfessors = () => {
+    fetch(API_URL) // 发起 API 请求
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // 返回解析后的 JSON 数据
+      })
+      .then((data) => {
+        setLectures(data); // 将数据存储在 state 中
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
+      });
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -65,15 +93,13 @@ function App() {
     <div className="App">
       <div className="main-container">
         <div className="sidebar">
-          {/* 可以添加侧边栏的内容 */}
-          <h1>课程列表</h1>
           <form
-            class="d-flex"
+            className="d-flex"
             role="search"
             onSubmit={(e) => e.preventDefault()}
           >
             <input
-              class="form-control me-2"
+              className="form-control me-2"
               type="search"
               placeholder="Search"
               aria-label="Search"
@@ -81,7 +107,7 @@ function App() {
               onChange={handleSearchChange} // 监听输入变化
             ></input>
 
-            <button class="btn btn-outline-success" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               Search
             </button>
           </form>
@@ -105,22 +131,44 @@ function App() {
             // )
 
             // assignment 3
-            filteredCards.length > 0 ? (
-              filteredCards.map((item) => (
-                <CourseCard
-                  key={item.title}
-                  title={item.title}
-                  price={item.price}
-                  language={item.language}
-                  duration={item.duration}
-                  location={item.location}
-                  recentAdded={item.recentAdded}
-                  difficulty={item.difficulty}
-                  isCompleted={item.isCompleted}
-                />
+            // filteredCards.length > 0 ? (
+            //   filteredCards.map((item) => (
+            //     <CourseCard
+            //       key={item.title}
+            //       title={item.title}
+            //       price={item.price}
+            //       language={item.language}
+            //       duration={item.duration}
+            //       location={item.location}
+            //       recentAdded={item.recentAdded}
+            //       difficulty={item.difficulty}
+            //       isCompleted={item.isCompleted}
+            //     />
+            //   ))
+            // ) : (
+            //   <p>没有找到匹配的课程</p>
+            // )
+
+            // assignment 4
+            lectures ? (
+              lectures.map((course) => (
+                <div key={course.id}>
+                  <h2>{course.name}</h2>
+                  <p>{course.title}</p>
+                  <p>{course.biography}</p>
+                  <h3>Courses Taught:</h3>
+                  <ul>
+                    {course.coursesTaught.map((courses) => (
+                      <li key={courses.courseId}>
+                        {courses.courseTitle} - {courses.lessons} lessons
+                      </li>
+                    ))}
+                  </ul>
+                  <p>Years of Experience: {course.yearsOfExperience}</p>
+                </div>
               ))
             ) : (
-              <p>没有找到匹配的课程</p>
+              <p>Loading...</p>
             )
           }
         </div>
